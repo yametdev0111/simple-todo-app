@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import TodosList from "./TodosList";
 import Header from "./Header";
 import InputTodo from "./InputTodo";
+import Toolbar from './Toolbar';
 import { useDispatch, useSelector } from "react-redux";
 import { appendTodoItem, clearTodoItems, deleteTodoItem, eliminateTodoItems, selectTodoItem, setTodoItems } from "../redux/actions";
 
@@ -55,7 +56,7 @@ const TodoContainer = () => {
   }
 
   useEffect(() => {
-    if( action !== 'Undo' && action !== 'Redo' ) {
+    if (action !== 'Undo' && action !== 'Redo') {
       setStates([...states.slice(0, step), todos]);
       setStep(step + 1);
     }
@@ -65,6 +66,12 @@ const TodoContainer = () => {
     <div className="container">
       <Header />
       <InputTodo addTodoProps={appendItem} />
+      <Toolbar
+        eliminate={eliminateItems}
+        clear={clearItems}
+        undo={undo}
+        redo={redo}
+      />
       <TodosList
         todos={todos}
         handleChangeProps={selectItem}
