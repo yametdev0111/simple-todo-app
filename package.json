@@ -5,7 +5,12 @@
   "dependencies": {
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
+    "react-redux": "^7.2.8",
+    "react-saga": "^0.3.1",
     "react-scripts": "3.2.0",
+    "react-thunk": "^1.0.0",
+    "redux": "^5.0.1",
+    "redux-thunk": "^3.1.0",
     "uuid": "^3.3.3"
   },
   "scripts": {

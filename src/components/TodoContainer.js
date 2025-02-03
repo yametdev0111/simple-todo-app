@@ -2,67 +2,51 @@ import React, { useState } from "react";
 import TodosList from "./TodosList";
 import Header from "./Header";
 import InputTodo from "./InputTodo";
-import { v4 as uuidv4 } from "uuid";
+import { useDispatch, useSelector } from "react-redux";
+import { appendTodoItem, clearTodoItems, deleteTodoItem, eliminateTodoItems, selectTodoItem } from "../redux/actions";
 
 const TodoContainer = () => {
-  const initialTodos = [
-    {
-      // id: uuid.v4(),
-      id: uuidv4(),
-      title: "Setup development environment",
-      completed: true,
-    },
-    {
-      // id: uuid.v4(),
-      id: uuidv4(),
-      title: "Develop website and add content",
-      completed: false,
-    },
-    {
-      // id: uuid.v4(),
-      id: uuidv4(),
-      title: "Deploy to live server",
-      completed: false,
-    },
-  ];
-  const [todos, setTodos] = useState(initialTodos);
+  const todos = useSelector(state => state.todos);
+  const dispatch = useDispatch();
 
-  const selectTodoItem = (id) => {
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id === id) {
-          todo.completed = !todo.completed;
-        }
-        return todo;
-      }),
-    );
+  const [step, setStep] = useState(0);
+
+  const selectItem = (id) => {
+    dispatch(selectTodoItem(id));
   };
 
-  const deleteTodoItem = (id) => {
-    setTodos([
-      ...todos.filter((todo) => {
-        return todo.id !== id;
-      }),
-    ]);
+  const deleteItem = (id) => {
+    dispatch(deleteTodoItem(id));
   };
 
-  const appendTodoItem = (title) => {
-    const newTodo = {
-      id: uuidv4(),
-      title: title,
-      completed: false,
-    };
-    setTodos([...todos, newTodo]);
+  const appendItem = (title) => {
+    dispatch(appendTodoItem(title))
   };
+
+  const eliminateItems = () => {
+    dispatch(eliminateTodoItems());
+  }
+
+  const clearItems = () => {
+    dispatch(clearTodoItems());
+  }
+
+  const undo = () => {
+
+  }
+
+  const redo = () => {
+
+  }
 
   return (
     <div className="container">
       <Header />
-      <InputTodo addTodoProps={appendTodoItem} />
+      <InputTodo addTodoProps={appendItem} />
       <TodosList
         todos={todos}
-        handleChangeProps={selectTodoItem}
-        deleteTodoProps={deleteTodoItem}
+        handleChangeProps={selectItem}
+        deleteTodoProps={deleteItem}
       />
     </div>
   );
