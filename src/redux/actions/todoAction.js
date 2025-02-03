@@ -26,3 +26,8 @@ export const eliminateTodoItems = () => ({
 export const clearTodoItems = () => ({
   type: "CLEAR"
 });
+
+export const setTodoItems = (todos) => ({
+  type: "SET",
+  payload: todos
+});
